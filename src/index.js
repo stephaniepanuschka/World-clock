@@ -1,63 +1,52 @@
+// Johannesburg and London Time Updater
 function updateTime() {
-  
-  document.querySelectorAll(".city").forEach((cityElement) => {
-    let cityId = cityElement.getAttribute("id");
-    let timeZone = cityElement.dataset.tz || getTimeZone(cityId);
+  // Johannesburg
+  let johannesburgElement = document.querySelector("#johannesburg");
+  if (johannesburgElement) {
+    let johannesburgDateElement = johannesburgElement.querySelector(".date");
+    let johannesburgTimeElement = johannesburgElement.querySelector(".time");
+    let johannesburgTime = moment().tz("Africa/Johannesburg");
 
-    if (!timeZone) return;
+    johannesburgDateElement.innerHTML = johannesburgTime.format("MMMM Do YYYY");
+    johannesburgTimeElement.innerHTML = johannesburgTime.format("h:mm:ss [<small>]A[</small>]");
+  }
 
-    let cityTime = moment().tz(timeZone);
-    cityElement.querySelector(".date").innerHTML = cityTime.format("MMMM Do YYYY");
-    cityElement.querySelector(".time").innerHTML = cityTime.format("h:mm:ss [<small>]A[</small>]");
-  });
-}
+  // London
+  let londonElement = document.querySelector("#london");
+  if (londonElement) {
+    let londonDateElement = londonElement.querySelector(".date");
+    let londonTimeElement = londonElement.querySelector(".time");
+    let londonTime = moment().tz("Europe/London");
 
-
-function getTimeZone(cityId) {
-  const zones = {
-    johannesburg: "Africa/Johannesburg",
-    london: "Europe/London",
-    berlin: "Europe/Berlin",
-    "sao-paulo": "America/Sao_Paulo",
-    auckland: "Pacific/Auckland",
-  };
-  return zones[cityId];
+    londonDateElement.innerHTML = londonTime.format("MMMM Do YYYY");
+    londonTimeElement.innerHTML = londonTime.format("h:mm:ss [<small>]A[</small>]");
+  }
 }
 
 function updateCity(event) {
   let cityTimeZone = event.target.value;
-  if (!cityTimeZone) return;
+  if (!cityTimeZone) return; // ignore if no city selected
 
+  let cityTime = moment().tz(cityTimeZone);
   let cityName = cityTimeZone.replace("_", " ").split("/")[1];
-  let citiesContainer = document.querySelector("#cities");
 
-
-  if (document.querySelector(`[data-tz="${cityTimeZone}"]`)) {
-    alert(`${cityName} is already displayed.`);
-    return;
-  }
-
- 
-  let cityElement = document.createElement("div");
-  cityElement.classList.add("city");
-  cityElement.dataset.tz = cityTimeZone;
-  cityElement.innerHTML = `
-    <div>
-      <h2>${cityName}</h2>
-      <div class="date"></div>
+  // ⬇️ Only show the selected city (no "Back to all cities" link)
+  let citiesElement = document.querySelector("#cities");
+  citiesElement.innerHTML = `
+    <div class="city">
+      <div>
+        <h2>${cityName}</h2>
+        <div class="date">${cityTime.format("MMMM Do YYYY")}</div>
+      </div>
+      <div class="time">${cityTime.format("h:mm:ss [<small>]A[</small>]")}</div>
     </div>
-    <div class="time"></div>
   `;
-  citiesContainer.appendChild(cityElement);
-
- 
-  updateTime();
 }
 
-
+// Run updates
 updateTime();
 setInterval(updateTime, 1000);
 
-
-let citySelect = document.querySelector("#city");
-citySelect.addEventListener("change", updateCity);
+// Dropdown event listener
+let citiesSelect = document.querySelector("#city");
+citiesSelect.addEventListener("change", updateCity);
