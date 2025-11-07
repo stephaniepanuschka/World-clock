@@ -3,8 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="src/style.css">
-  <title>World clock</title>
+ <link rel="stylesheet" href="src/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.37/moment-timezone-with-data-1970-2030.min.js"></script>
+ <title>World clock</title>
 </head>
 <body>
   <div class="container">
@@ -18,25 +20,25 @@
     <option value="">Auckland</option>
   </select>
 
-  <div class="city">
+  <div class="city" id="johannesburg" >
     <div>
     <h2>Johannesburg 🇿🇦</h2>
-    <div class="date">August 15th 2022</div>
+    <div class="date"></div>
     </div>
-    <div class="time">1:48:15 <small> AM </small></div>
+    <div class="time"></div>
     </div>
-    <div class="city">
+    <div class="city" id="london">
     <div>
     <h2>London 🏴󠁧󠁢󠁥󠁮󠁧󠁿</h2>
-    <div class="date">August 15th 2022</div>
+    <div class="date"></div>
     </div>
-    <div class="time">1:48:15 <small> AM </small></div>
+    <div class="time"></div>
     </div>
     </div>
   </div>
 
 <footer>This project was coded by <strong> 👩🏽‍💻 Stephanie Panuschka </strong> </a> is <a href="https://github.com/stephaniepanuschka/World-clock" target="_blank">opened sourced on GitHub</a> and <a href="https://world-clock-beryl.vercel.app/" target="_blank">hosted on Vercel</a>
 </footer>
-<script src="src/index.js"></script>
+<script src="./src/index.js"></script>
 </body>
 </html>
