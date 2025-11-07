@@ -1,6 +1,6 @@
-// Johannesburg and London Time Updater
+
 function updateTime() {
-  // Johannesburg
+ 
   let johannesburgElement = document.querySelector("#johannesburg");
   if (johannesburgElement) {
     let johannesburgDateElement = johannesburgElement.querySelector(".date");
@@ -11,7 +11,7 @@ function updateTime() {
     johannesburgTimeElement.innerHTML = johannesburgTime.format("h:mm:ss [<small>]A[</small>]");
   }
 
-  // London
+  
   let londonElement = document.querySelector("#london");
   if (londonElement) {
     let londonDateElement = londonElement.querySelector(".date");
@@ -25,12 +25,12 @@ function updateTime() {
 
 function updateCity(event) {
   let cityTimeZone = event.target.value;
-  if (!cityTimeZone) return; // ignore if no city selected
+  if (!cityTimeZone) return; 
 
   let cityTime = moment().tz(cityTimeZone);
   let cityName = cityTimeZone.replace("_", " ").split("/")[1];
 
-  // ⬇️ Only show the selected city (no "Back to all cities" link)
+  
   let citiesElement = document.querySelector("#cities");
   citiesElement.innerHTML = `
     <div class="city">
@@ -43,10 +43,10 @@ function updateCity(event) {
   `;
 }
 
-// Run updates
+
 updateTime();
 setInterval(updateTime, 1000);
 
-// Dropdown event listener
+
 let citiesSelect = document.querySelector("#city");
 citiesSelect.addEventListener("change", updateCity);
